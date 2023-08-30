@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/popular"
+        android:id="@+id/popularFragment"/>
+    <item android:title="@string/top_rated"
+        android:id="@+id/top_rated_fragment"/>
+    <item android:title="@string/language"
+        android:id="@+id/languageFragment"/>
+    <item android:title="@string/favorites"
+        android:id="@+id/favoriteFragment"/>
+</menu>
