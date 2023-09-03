@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.Toolbar
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.zedflex.R
 import com.example.zedflex.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {

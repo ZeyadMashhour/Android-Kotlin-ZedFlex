@@ -3,26 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/favouriteFragment">
+    app:startDestination="@id/popularFragment">
 
-    <fragment
-        android:id="@+id/favouriteFragment"
-        android:name="com.example.zedflex.presentation.ui.fragments.FavoriteFragment"
-        android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/popularFragment"
         android:name="com.example.zedflex.presentation.ui.fragments.PopularFragment"
         android:label="fragment_popular"
-        tools:layout="@layout/fragment_popular" />
+        tools:layout="@layout/fragment_popular" >
+    </fragment>
+    <fragment
+        android:id="@+id/topRatedFragment"
+        android:name="com.example.zedflex.presentation.ui.fragments.TopRatedFragment"
+        android:label="fragment_top_rated"
+        tools:layout="@layout/fragment_top_rated" />
     <fragment
         android:id="@+id/languageFragment"
         android:name="com.example.zedflex.presentation.ui.fragments.LanguageFragment"
         android:label="fragment_language"
         tools:layout="@layout/fragment_language" />
     <fragment
-        android:id="@+id/topRatedFragment"
-        android:name="com.example.zedflex.presentation.ui.fragments.TopRatedFragment"
-        android:label="fragment_top_rated"
-        tools:layout="@layout/fragment_top_rated" />
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.zedflex.presentation.ui.fragments.FavoriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favorite" />
+
+
 </navigation>
