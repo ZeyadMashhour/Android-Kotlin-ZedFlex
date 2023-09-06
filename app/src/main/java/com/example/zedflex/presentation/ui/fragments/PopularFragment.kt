@@ -17,9 +17,8 @@ import com.example.zedflex.presentation.viewmodel.MainViewModel
 class PopularFragment : Fragment() {
     private lateinit var binding: FragmentPopularBinding
     private lateinit var mainMvvm: MainViewModel
-    private var movieList = ArrayList<MovieDetails>()
-
-    private lateinit var popularMovieAdapter:MovieViewAdapter
+    private val movieList = ArrayList<MovieDetails>()
+    private lateinit var popularMovieAdapter: MovieViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,32 +35,19 @@ class PopularFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        preparePopularMovieRecyclerView()
         // Fetch popular movies and observe them
         mainMvvm.getPopularMoviesId()
         observePopularMoviesLiveData()
-//        preparePopularMovieRecyclerView()
     }
 
     private fun preparePopularMovieRecyclerView() {
         binding.rvPopularMovies.apply {
-            layoutManager= GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            popularMovieAdapter = MovieViewAdapter()
             adapter = popularMovieAdapter
         }
     }
-
-    private fun observeMovieDetailsLiveData() {
-        mainMvvm.observeMovieDetailsLiveData().observe(viewLifecycleOwner, Observer { movieDetails ->
-            if (movieDetails != null) {
-                movieList.add(movieDetails)
-//                Log.d("API MD", movieList.toString())
-
-            } else {
-                Log.d("API1", "Movie details are null in pofrag")
-            }
-        })
-    }
-
 
     private fun observePopularMoviesLiveData() {
         mainMvvm.observePopularMoviesLiveData().observe(viewLifecycleOwner, Observer<List<String>> { moviesList ->
@@ -72,13 +58,16 @@ class PopularFragment : Fragment() {
         })
     }
 
-    private fun getTopMoviesDetails(idList:List<String>){
-        for (i in 0 until 10) {
+    private fun getTopMoviesDetails(idList: List<String>) {
+        for (i in 0 until minOf(idList.size, 10)) {
             val item = idList[i]
             mainMvvm.getMovieDetails(item)
-            observeMovieDetailsLiveData()
         }
-    }
 
+        // Observe the movie details and update the RecyclerView adapter
+        mainMvvm.observeMovieDetailsLiveData().observe(viewLifecycleOwner, Observer<List<MovieDetails>> { movieDetailsList ->
+            popularMovieAdapter.setData(movieDetailsList)
+        })
+    }
 
 }

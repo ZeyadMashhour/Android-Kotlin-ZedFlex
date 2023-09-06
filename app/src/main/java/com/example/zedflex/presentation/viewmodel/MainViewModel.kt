@@ -12,27 +12,23 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
-
     private lateinit var popularMoviesLiveData: MutableLiveData<List<String>>
-    private val movieDetailsLiveData: MutableLiveData<MovieDetails> = MutableLiveData()
+    private val movieDetailsLiveData: MutableLiveData<List<MovieDetails>> = MutableLiveData()
 
-    companion object{
+    companion object {
         var moviesIds: List<String>? = null
     }
 
     init {
         popularMoviesLiveData = MutableLiveData()
-        movieDetailsLiveData.value = null
     }
-
-
 
     fun getPopularMoviesId() {
         val imDbApi = RetrofitInstance.instance.create(IMDbApi::class.java)
         imDbApi.getPopularMovies().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if (response.isSuccessful) {
-                    Log.d("API","${response.body()}")
+                    Log.d("API", "${response.body()}")
                     popularMoviesLiveData.value = response.body()
                 } else {
                     return
@@ -57,7 +53,9 @@ class MainViewModel : ViewModel() {
                     val movieDetails = response.body()
                     if (movieDetails != null) {
                         Log.d("API", "Movie details: $movieDetails")
-                        movieDetailsLiveData.value = movieDetails
+                        val currentList = movieDetailsLiveData.value?.toMutableList() ?: mutableListOf()
+                        currentList.add(movieDetails)
+                        movieDetailsLiveData.value = currentList
                     } else {
                         Log.d("API", "Movie details are null in main")
                     }
@@ -72,9 +70,8 @@ class MainViewModel : ViewModel() {
         })
     }
 
-
-    fun observeMovieDetailsLiveData(): LiveData<MovieDetails> {
+    fun observeMovieDetailsLiveData(): LiveData<List<MovieDetails>> {
         return movieDetailsLiveData
     }
-
 }
+
