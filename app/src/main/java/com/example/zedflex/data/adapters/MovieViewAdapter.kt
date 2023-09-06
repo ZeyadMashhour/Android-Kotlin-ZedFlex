@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.zedflex.R
 import com.example.zedflex.data.models.MovieDetails
 import com.example.zedflex.databinding.MovieItemBinding
 
@@ -29,13 +30,12 @@ class MovieViewAdapter : RecyclerView.Adapter<MovieViewAdapter.MovieViewHolder>(
         Log.d("Test", movieDetails.image.url.toString())
         val image = movieDetails.image
 
-        if (image != null) {
-            Glide.with(holder.itemView)
-                .load(image.url)
-                .into(holder.binding.imageView)
-        } else {
-            return
-        }
+        Glide.with(holder.itemView)
+            .load(image.url)
+            .placeholder(R.drawable.ic_logo) // Replace with your placeholder image
+            .error(R.drawable.ic_launcher_background) // Replace with your error image
+            .into(holder.binding.imageView)
+
     }
 
 
