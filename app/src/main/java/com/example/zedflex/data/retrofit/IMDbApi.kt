@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface IMDbApi {
 
     @GET("title/find")
-    fun getMovieDetails(@Query("query") query: String): Call<MovieDetails>
+    fun getMovieDetails(@Query("q") query: String): Call<MovieDetails>
 
     @GET("title/get-most-popular-movies")
     fun getPopularMovies(): Call<List<String>>

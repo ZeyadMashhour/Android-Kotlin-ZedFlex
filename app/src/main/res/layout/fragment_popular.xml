@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragments.PopularFragment">
 
-    <TextView
-        android:id="@+id/textViewMoviesList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_popular_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello"
+        tools:listitem="@layout/movie_item"
         android:padding="16dp" />
 
 </FrameLayout>
